@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -117,14 +116,6 @@
       border: 1px solid #ff66cc;
       display: none;
     }
-
-    audio {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 300px;
-      z-index: 2;
-    }
   </style>
 </head>
 <body>
@@ -145,10 +136,13 @@
       Мы пройдём всё вместе. ❤️
     </div>
 
-    <audio id="bgmusic" autoplay loop>
-      <source src="orange.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
+    <div style="position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.6); padding: 10px 15px; border-radius: 12px; box-shadow: 0 0 10px #ff66cc; z-index: 5;">
+      <audio id="bgmusic" controls loop style="width: 250px;">
+        <source src="orange.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <div style="color: #ffccff; font-size: 0.9em; margin-top: 5px; text-align: center;">запусти трек :3</div>
+    </div>
   </div>
 
   <script>
@@ -172,9 +166,6 @@
     setTimeout(() => {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      // Попытка автозапуска музыки
-      const audio = document.getElementById('orange.mp3');
-    audio.play().catch(() => {});
     }, 3000);
   </script>
 </body>
