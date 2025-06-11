@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aslbek.EXE - Mood Booster</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      color: #ffffff;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      height: 100vh;
+      background-repeat: no-repeat;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/stars.png') repeat;
+      animation: moveStars 100s linear infinite;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-1000px); }
+    }
+
+    .loader {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      color: #00ffcc;
+      animation: blink 1s infinite;
+      z-index: 2;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .content {
+      display: none;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #ff66cc;
+      text-shadow: 0 0 10px #ff66cc;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      background: #6600cc;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #9900ff;
+      transition: transform 0.2s ease;
+      margin: 10px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #messageBox {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #00ffff;
+    }
+
+    #secretMessage {
+      margin-top: 20px;
+      font-size: 1.3em;
+      color: #ffccff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #ff66cc;
+      display: none;
+    }
+
+    audio {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 300px;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader">Загрузка Aslbek.EXE...</div>
+
+  <div class="content" id="mainContent">
+    <h1>Если грустно — загляни сюда. Здесь тебя ждут.</h1>
+    <p>Ты не один ❤️</p>
+
+    <button onclick="showMessage()">❤️ Баф настроения</button>
+    <button onclick="showSecret()">🌠 Нажми, если грустно</button>
+    <button onclick="toggleMusic()" id="musicToggleBtn">⏸ Музыка</button>
+
+
+    <div id="messageBox"></div>
+    <div id="secretMessage">
+      Аслбек, брат, это место — для тебя.<br>
+      Если станет грустно или тяжело — просто зайди сюда.<br>
+      Ты не один, помни об этом. Я рядом.<br>
+      Мы пройдём всё вместе. ❤️
+    </div>
+
+    <audio id="bgmusic" autoplay loop>
+      <source src="orange.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script>
+    const phrases = [
+      "Ты не один.",
+      "Этот мир лучше с тобой.",
+      "Ты сильнее, чем думаешь.",
+      "Ты достоин счастья.",
+      "Ты всё сможешь ❤️"
+    ];
+
+    function showMessage() {
+      const random = phrases[Math.floor(Math.random() * phrases.length)];
+      document.getElementById('messageBox').innerText = random;
+    }
+
+    function showSecret() {
+      document.getElementById('secretMessage').style.display = 'block';
+    }
+
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      // Попытка автозапуска музыки
+      const audio = document.getElementById('bgmusic');
+      audio.play().catch(() => {});
+    }, 3000);
+  
+let isPlaying = true;
+
+function toggleMusic() {
+  const audio = document.getElementById('bgmusic');
+  const btn = document.getElementById('musicToggleBtn');
+  if (isPlaying) {
+    audio.pause();
+    btn.innerText = '▶️ Музыка';
+  } else {
+    audio.play().catch(() => {});
+    btn.innerText = '⏸ Музыка';
+  }
+  isPlaying = !isPlaying;
+}
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
